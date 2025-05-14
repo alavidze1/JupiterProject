@@ -4,8 +4,14 @@ connection = mysql.connector.connect(user='weijial2',
                                   host='10.8.37.226',
                                   database='weijial2_db')
 cursor = connection.cursor()
-student = input("Enter a student's ID")
-query = "CALL Get_Schedule(" + student + ")"
+choose = input ("Teacher or Student?")
+student = input("Log in by inputting your ID:")
+if choose == "Student":
+    query = "CALL Get_Schedule(" + student + ")"
+else:
+    query = "CALL Get_Schedule_Teacher(" + student + ")"
+    #CREATE PROCEDURE Get_Schedule_Teacher(student integer) SELECT period, course_name, room FROM Get_Sections WHERE teacher_id=name ORDER BY period ASC;
+
 cursor.execute(query)
 list1 = list(cursor.fetchall())
 options = list1
